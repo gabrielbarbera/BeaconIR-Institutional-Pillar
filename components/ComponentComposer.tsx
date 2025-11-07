@@ -20,14 +20,21 @@ export default function ComponentComposer({
   theme,
 }: ComponentComposerProps) {
   // Defensive check: ensure components is an array
-  if (!components || !Array.isArray(components)) {
-    console.warn("ComponentComposer: components must be an array", components);
+  // During static generation, components might be undefined or not an array
+  if (!components) {
+    return null;
+  }
+  
+  // Ensure it's an array - handle both array and non-array cases
+  const componentsArray = Array.isArray(components) ? components : [];
+  
+  if (componentsArray.length === 0) {
     return null;
   }
 
   return (
     <div className="components-container">
-      {components.map((component, index) => (
+      {componentsArray.map((component, index) => (
         <ComponentRenderer key={index} component={component} theme={theme} />
       ))}
     </div>

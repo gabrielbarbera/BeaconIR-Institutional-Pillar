@@ -12,7 +12,8 @@ export default function DemoPage() {
   };
 
   // Institutional Pillar component structure
-  const components = [
+  // Define as const to ensure it's properly typed during static generation
+  const components: Array<{ type: string; props?: any }> = [
     { type: "hero", props: { metrics: { marketCap: mockCompany.marketCap, ticker: mockCompany.tickerSymbol }, marketData: mockMarketData } },
     { type: "pillars", props: { pillars: mockPillars } },
     { type: "kpis", props: { kpis: mockKPIs } },
