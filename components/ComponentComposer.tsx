@@ -19,6 +19,12 @@ export default function ComponentComposer({
   components,
   theme,
 }: ComponentComposerProps) {
+  // Defensive check: ensure components is an array
+  if (!components || !Array.isArray(components)) {
+    console.warn("ComponentComposer: components must be an array", components);
+    return null;
+  }
+
   return (
     <div className="components-container">
       {components.map((component, index) => (
@@ -35,6 +41,10 @@ function ComponentRenderer({
   component: Component;
   theme?: any;
 }) {
+  if (!component || typeof component !== 'object') {
+    return null;
+  }
+  
   const { type, props } = component;
 
   switch (type) {
